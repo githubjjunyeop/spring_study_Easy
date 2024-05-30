@@ -22,3 +22,5 @@ UPDATE member set age =45, phone='010-1111-0000' WHERE ID ='admin';
 
 -- DELETE
 DELETE FROM member WHERE ID ='admin';
+
+DROP TABLE member
