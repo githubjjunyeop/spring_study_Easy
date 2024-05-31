@@ -33,8 +33,14 @@ public class MemberListController extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out= response.getWriter();
 			out.println("<html>");
+			out.println("<head>");
+			out.println("<meta name='viewport' content='width=device-width, initial-scale=1'>");
+			out.println("<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'>");
+			out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js'></script>");
+			out.println("<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js'></script>");
+			out.println("</head>");
 			out.println("</body>");
-			out.println("<table broder='1'>");
+			out.println("<table class='table talbe-bordered'>");
 			out.println("<thead>");
 		    out.println("<tr>");
 		    out.println("<th>번호</th>");
@@ -52,7 +58,7 @@ public class MemberListController extends HttpServlet {
 		    out.println("<tr>");
 		    for(MemberVO vo : list) {
 			    out.println("<td>"+vo.getNum() +"</td>");
-			    out.println("<td>"+vo.getId() +"</td>");
+			    out.println("<td><a href='/MVC01/memberContent.do?num="+vo.getNum()+"'>"+vo.getId() +"</a></td>");
 			    out.println("<td>"+vo.getPass() +"</td>");
 			    out.println("<td>"+vo.getName() +"</td>");
 			    out.println("<td>"+vo.getAge() +"</td>");

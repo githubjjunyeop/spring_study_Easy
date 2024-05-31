@@ -19,7 +19,7 @@ public class MemberDAO {
 			//유지보수가 쉬움
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(url,user,ps);
-			String sql = "";
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -89,23 +89,106 @@ public class MemberDAO {
 		
 	}
 	
-	public void MemberDelete(String num) {
+	public int MemberDelete(String num) {
 		
 		String SQL = "DELETE FROM member WHERE NUM=?";
 		getConnect();
-		
+		int cnt =-1;
 		try {
 			ps = conn.prepareStatement(SQL);
 			ps.setString(1,num);
 			
-			ps.executeUpdate();
+			cnt = ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			dbClose();
 		}
+		
+		return cnt;
 	}
 	
+	
+	
+	public MemberVO MemberContent(int num) {
+		
+		String SQL = "SELECT * FROM member WHERE num=?";
+		getConnect();
+		
+		MemberVO vo = null;
+		try {
+			ps = conn.prepareStatement(SQL);
+			ps.setInt(1,num);
+			
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				// 회원한명의 정보를 ㄱ묶고 
+				num = rs.getInt("num");
+				String id = rs.getString("id");
+				String pass = rs.getString("pass");
+				String name = rs.getString("name");
+			
+				int age = rs.getInt("age");
+				String email = rs.getString("email");
+				String phone = rs.getString("phone");
+				vo = new MemberVO( num, id,  pass,  name,  age,  email,  phone);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbClose();
+		}
+		
+		return vo;
+	}
+	
+
+	public int MemberUpdate(MemberVO vo) {
+		
+		String SQL = "UPDATE member set age=?, email=?, phone=? WHERE num=?";
+		getConnect();
+		int cnt =-1;
+		try {
+			
+			ps = conn.prepareStatement(SQL);
+			ps.setInt(1,vo.getAge());
+			ps.setString(2,vo.getEmail());
+			ps.setString(3,vo.getPhone());
+			ps.setInt(4,vo.getNum());
+			
+			cnt = ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbClose();
+		}
+		
+		return cnt;
+	}
+	
+//public int MemberUpdate(String age, String email, String phone, int num) {
+//	
+//	String SQL = "UPDATE member set age=?, email=?, phone=? WHERE num=?";
+//	getConnect();
+//	int cnt =-1;
+//	try {
+//		
+//		ps = conn.prepareStatement(SQL);
+//		ps.setString(1,age);
+//		ps.setString(2,email);
+//		ps.setString(3,phone);
+//		ps.setInt(4,num);
+//		
+//		cnt = ps.executeUpdate();
+//	} catch (Exception e) {
+//		e.printStackTrace();
+//	} finally {
+//		dbClose();
+//	}
+//	
+//	return cnt;
+//}
+
 	// 데이터베이스 연결 끊기
 	
 	public void dbClose() {
