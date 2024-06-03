@@ -54,9 +54,6 @@
 				<input type ="button" value="회원가입" class="btn btn-primary" onclick="location.href='memberRegister.html'">
 			</td>
 		</tr>
-	
-	
-	
 	</table>
 	
 
