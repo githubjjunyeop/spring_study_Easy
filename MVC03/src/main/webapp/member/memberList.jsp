@@ -17,7 +17,7 @@ ArrayList<MemberVO> list = (ArrayList<MemberVO>)request.getAttribute("list");
 
 <script>
 	function delectFn(num){
-		location.href="memberDelete.jsp?num=" + num;
+		location.href="memberDelete.do?num=" + num;
 	}
 </script>
 </head>
@@ -37,7 +37,7 @@ ArrayList<MemberVO> list = (ArrayList<MemberVO>)request.getAttribute("list");
 		<%	for(MemberVO vo : list){ %>
 				<tr>
 				<td><%=vo.getNum()%></td>
-				<td><a href="memberContent.jsp?num=<%=vo.getNum()%>"><%=vo.getId()%></a></td>
+				<td><a href="memberContent.do?num=<%=vo.getNum()%>"><%=vo.getId()%></a></td>
 				<td><%=vo.getPass()%></td>
 				<td><%=vo.getName()%></td>
 				<td><%=vo.getAge()%></td>
@@ -51,7 +51,7 @@ ArrayList<MemberVO> list = (ArrayList<MemberVO>)request.getAttribute("list");
 			
 		<tr>
 			<td colspan="8" align="right">
-				<input type ="button" value="회원가입" class="btn btn-primary" onclick="location.href='memberRegister.html'">
+				<input type ="button" value="회원가입" class="btn btn-primary" onclick="location.href='member/memberRegister.html'">
 			</td>
 		</tr>
 	</table>
