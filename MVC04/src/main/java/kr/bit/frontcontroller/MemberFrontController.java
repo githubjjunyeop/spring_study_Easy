@@ -11,6 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.bit.controller.Controller;
+import kr.bit.controller.MemberContentController;
+import kr.bit.controller.MemberDeleteController;
+import kr.bit.controller.MemberInsertController;
+import kr.bit.controller.MemberListController;
+import kr.bit.controller.MemberRegisterController;
+import kr.bit.controller.MemberUpdateController;
 import kr.bit.model.MemberDAO;
 import kr.bit.model.MemberVO;
 
@@ -31,90 +38,36 @@ public class MemberFrontController extends HttpServlet {
 		System.out.println(command);
 		
 		//요청에 따른 분기작업
-		
+		Controller controller = null;
+		String nextpage = null;
 		if(command.equals("/memberList.do")) {
-			MemberDAO dao = new MemberDAO();
-			List<MemberVO> list = dao.memberList();
-			request.setAttribute("list", list);
-			RequestDispatcher rd = request.getRequestDispatcher("member/memberList.jsp");
+			controller = new MemberListController();
+			nextpage = controller.requestHandler(request,response);
+			RequestDispatcher rd = request.getRequestDispatcher(nextpage);
 			rd.forward(request, response);
 			
 		} else if(command.equals("/memberInsert.do")) {
-			
-			request.setCharacterEncoding("UTF-8");
-			String id = request.getParameter("id");
-			String pass = request.getParameter("pass");
-			String name = request.getParameter("name");
-			int age = Integer.parseInt(request.getParameter("age"));
-			String email = request.getParameter("email");
-			String phone = request.getParameter("phone");
-			
-//			MemberVO vo = new  MemberVO(id, pass, name, age, email, phone);
-			MemberVO vo = new  MemberVO();
-			
-			vo.setId(id);
-			vo.setPass(pass);
-			vo.setName(name);
-			vo.setAge(age);
-			vo.setEmail(email);
-			vo.setPhone(phone);
-			
-			MemberDAO dao = new MemberDAO();
-			int cnt = dao.memberInsert(vo);
-			PrintWriter out =response.getWriter();
-			if(cnt>0) {
-				response.sendRedirect("/MVC04//memberList.do");
-			} else {
-				throw new ServletException("not insert");
-			}
-			
+			controller = new MemberInsertController();
+			nextpage = controller.requestHandler(request,response);
+			response.sendRedirect(nextpage);
 		} else if(command.equals("/memberRegister.do")) { 
-			RequestDispatcher rd = request.getRequestDispatcher("member/memberRegister.html");
+			controller = new MemberRegisterController();
+			nextpage = controller.requestHandler(request,response);
+			RequestDispatcher rd = request.getRequestDispatcher(nextpage);
 			rd.forward(request, response);
-			
 		} else if(command.equals("/memberContent.do")) { 
-			int num = Integer.parseInt(request.getParameter("num"));
-			MemberDAO dao = new MemberDAO();
-			MemberVO vo = dao.MemberContent(num);
-			
-			request.setAttribute("vo", vo);
-			RequestDispatcher rd = request.getRequestDispatcher("member/memberContent.jsp");
+			controller = new MemberContentController();
+			nextpage = controller.requestHandler(request,response);
+			RequestDispatcher rd = request.getRequestDispatcher(nextpage);
 			rd.forward(request, response);
-			
 		} else if(command.equals("/memberUpdate.do")) { 
-			request.setCharacterEncoding("UTF-8");
-			int num = Integer.parseInt(request.getParameter("num"));
-			int age = Integer.parseInt(request.getParameter("age"));
-			String email = request.getParameter("email");
-			String phone = request.getParameter("phone");
-			
-			MemberVO vo = new MemberVO();
-			vo.setNum(num);
-			vo.setAge(age);
-			vo.setEmail(email);
-			vo.setPhone(phone);
-			
-			MemberDAO dao = new MemberDAO();
-			int cnt = dao.MemberUpdate(vo);
-			
-			if(cnt>0) {
-				// 가입성공
-				response.sendRedirect("/MVC04/memberList.do");
-			} else {
-				//가입실패 ->예외객체를 만들어서 WAS에게 던지자.
-				throw new ServletException("not Update");
-			}
+			controller = new MemberUpdateController();
+			nextpage = controller.requestHandler(request,response);
+			response.sendRedirect(nextpage);
 		} else if(command.equals("/memberDelete.do")) { 
-			
-			MemberDAO dao = new MemberDAO();
-
-			String num = request.getParameter("num"); 
-			int cnt = dao.MemberDelete(num);
-			if(cnt > 0) {
-				response.sendRedirect("/MVC04/memberList.do");			
-			} else {
-				throw new ServletException("not delete");
-			}
+			controller = new MemberDeleteController();
+			nextpage = controller.requestHandler(request,response);
+			response.sendRedirect(nextpage);
 		}
 		
 	}
