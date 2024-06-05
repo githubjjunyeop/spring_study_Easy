@@ -7,6 +7,8 @@
 	
 	MemberVO vo = (MemberVO)request.getAttribute("vo"); 
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +23,7 @@
 </head>
 <body>
 	<h1><%=vo.getName() %> 회원 상세보기</h1>
-	<form name="formDate" action="/MVC04/memberUpdate.do" method="post" return="false">
+	<form name="formDate" action="${ctx}/memberUpdate.do" method="post" return="false">
 	<table class="table talbe-bordered">
 	<input type="hidden" name="num" value=<%=vo.getNum() %>>
 		<tr>
@@ -63,7 +65,7 @@
 			<td colspan="2" align ="center">
 				<button onclick="updateFn()" class="btn btn-warning">수정하기</button>
 				<button onclick="reset" class="btn btn-primary">취소</button>
-				<button onclick="location.href='/MVC04/memberList.do'" class="btn">List돌아가기</button>
+				<button onclick="location.href='${ctx}/memberList.do'" class="btn">List돌아가기</button>
 			</td>
 		</tr>
 		
