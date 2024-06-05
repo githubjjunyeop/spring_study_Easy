@@ -19,7 +19,7 @@ public class MemberDeleteController implements Controller{
 		int cnt = dao.MemberDelete(num);
 		String nextpage = "";
 		if(cnt > 0) {
-			nextpage = "/MVC04/memberList.do";			
+			nextpage = "redirect:/MVC04/memberList.do";			
 		} else {
 			throw new ServletException("not delete");
 		}

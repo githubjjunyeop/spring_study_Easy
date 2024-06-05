@@ -15,7 +15,7 @@ public class MemberInsertController implements Controller {
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse reponse)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		
 		String id = request.getParameter("id");
 		String pass = request.getParameter("pass");
 		String name = request.getParameter("name");
@@ -38,7 +38,7 @@ public class MemberInsertController implements Controller {
 //		PrintWriter out =response.getWriter();
 		String nextpage = null;
 		if(cnt>0) {
-			nextpage= "/MVC04/memberList.do";
+			nextpage= "redirect:/MVC04/memberList.do";
 		} else {
 			throw new ServletException("not insert");
 		}

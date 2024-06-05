@@ -21,7 +21,7 @@ ArrayList<MemberVO> list = (ArrayList<MemberVO>)request.getAttribute("list");
 	}
 </script>
 </head>
-[MVC03 예제 - Controller+View]
+[MVC03 예제 - Controller+View]??여기가 왜잡히는거지?
 <body>
 	<table class="table talbe-bordered">
 		<tr>

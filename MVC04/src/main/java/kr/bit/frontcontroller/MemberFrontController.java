@@ -11,13 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.bit.controller.Controller;
-import kr.bit.controller.MemberContentController;
-import kr.bit.controller.MemberDeleteController;
-import kr.bit.controller.MemberInsertController;
-import kr.bit.controller.MemberListController;
-import kr.bit.controller.MemberRegisterController;
-import kr.bit.controller.MemberUpdateController;
+import kr.bit.controller.*;
+
 import kr.bit.model.MemberDAO;
 import kr.bit.model.MemberVO;
 
@@ -40,34 +35,21 @@ public class MemberFrontController extends HttpServlet {
 		//요청에 따른 분기작업
 		Controller controller = null;
 		String nextpage = null;
-		if(command.equals("/memberList.do")) {
-			controller = new MemberListController();
-			nextpage = controller.requestHandler(request,response);
-			RequestDispatcher rd = request.getRequestDispatcher(nextpage);
-			rd.forward(request, response);
+		
+		
+		HandlerMapping mapping = new HandlerMapping();
+		controller = mapping.getController(command);
+		nextpage =  controller.requestHandler(request,response);
+		
+		if(nextpage != null) {
+			if(nextpage.indexOf("redirect:")!=-1) {
+				// "redirect:/MVC04/memberList.do";
+				response.sendRedirect(nextpage.split(":")[1]);
+			} else {
+				RequestDispatcher rd = request.getRequestDispatcher(ViewResolver.makeView(nextpage)); // forward
+				rd.forward(request, response);
+			}
 			
-		} else if(command.equals("/memberInsert.do")) {
-			controller = new MemberInsertController();
-			nextpage = controller.requestHandler(request,response);
-			response.sendRedirect(nextpage);
-		} else if(command.equals("/memberRegister.do")) { 
-			controller = new MemberRegisterController();
-			nextpage = controller.requestHandler(request,response);
-			RequestDispatcher rd = request.getRequestDispatcher(nextpage);
-			rd.forward(request, response);
-		} else if(command.equals("/memberContent.do")) { 
-			controller = new MemberContentController();
-			nextpage = controller.requestHandler(request,response);
-			RequestDispatcher rd = request.getRequestDispatcher(nextpage);
-			rd.forward(request, response);
-		} else if(command.equals("/memberUpdate.do")) { 
-			controller = new MemberUpdateController();
-			nextpage = controller.requestHandler(request,response);
-			response.sendRedirect(nextpage);
-		} else if(command.equals("/memberDelete.do")) { 
-			controller = new MemberDeleteController();
-			nextpage = controller.requestHandler(request,response);
-			response.sendRedirect(nextpage);
 		}
 		
 	}

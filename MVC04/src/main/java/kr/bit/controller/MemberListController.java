@@ -24,10 +24,7 @@ public class MemberListController implements Controller{
 		// 다음페이지는 memberList.jsp 입니다.
 		//3.다음페이지 정보(View)
 		
-		return "member/memberList.jsp";
+		return "memberList";
 	}
-
-	
-
 
 }

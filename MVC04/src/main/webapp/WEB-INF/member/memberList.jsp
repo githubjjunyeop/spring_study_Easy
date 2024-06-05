@@ -21,7 +21,7 @@ ArrayList<MemberVO> list = (ArrayList<MemberVO>)request.getAttribute("list");
 	}
 </script>
 </head>
-[MVC03 예제 - Controller+View]
+[MVC04 예제 - FrontController+POJO]
 <body>
 	<table class="table talbe-bordered">
 		<tr>

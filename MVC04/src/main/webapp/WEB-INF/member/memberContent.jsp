@@ -17,16 +17,11 @@
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js'></script>
 <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js'></script>
 	
-<script>
-	function updateFn(){
-		let formData = document.formDate;
-		formData.submit();
-	}
-</script>
+
 </head>
 <body>
 	<h1><%=vo.getName() %> 회원 상세보기</h1>
-	<form name="formDate" action="memberUpdate.do" method="post" return="false">
+	<form name="formDate" action="/MVC04/memberUpdate.do" method="post" return="false">
 	<table class="table talbe-bordered">
 	<input type="hidden" name="num" value=<%=vo.getNum() %>>
 		<tr>
@@ -68,7 +63,7 @@
 			<td colspan="2" align ="center">
 				<button onclick="updateFn()" class="btn btn-warning">수정하기</button>
 				<button onclick="reset" class="btn btn-primary">취소</button>
-				<button location.href="MVC03/memberList.do" class="btn">List돌아가기</button>
+				<button onclick="location.href='/MVC04/memberList.do'" class="btn">List돌아가기</button>
 			</td>
 		</tr>
 		

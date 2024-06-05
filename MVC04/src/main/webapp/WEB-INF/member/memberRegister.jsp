@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +15,7 @@
 	<div align="center">
 	
 	<h1>회원가입 화면</h1>
-	<form action="/MVC03/memberInsert.do" method="post">
+	<form action="/MVC04/memberInsert.do" method="post">
 		<table class="table table-bordered">
 	
 		  <tr>
@@ -54,7 +56,7 @@
 		  </tr>
 		  <tr>
 		    <td colspan="2" align="center">
-		    	<input type="submit" value="가입" class="btn btn-primary">
+		    	<input type="submit" value="가입" class="btn btn-primary" >
 		    	<input type="reset" value="취소" class="btn btn-warning">
 		    </td>
 		  </tr>

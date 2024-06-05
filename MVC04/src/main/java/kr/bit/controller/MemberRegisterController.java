@@ -12,7 +12,7 @@ public class MemberRegisterController implements Controller{
 	public String requestHandler(HttpServletRequest request, HttpServletResponse reponse)
 			throws ServletException, IOException {
 		
-		return "member/memberRegister.html";
+		return "memberRegister";
 	}
 
 }

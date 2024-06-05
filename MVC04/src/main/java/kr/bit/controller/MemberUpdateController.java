@@ -31,7 +31,7 @@ public class MemberUpdateController implements Controller{
 		String nextpage = null;
 		if(cnt>0) {
 			// 수정성공
-			nextpage = "/MVC04/memberList.do";
+			nextpage = "redirect:/MVC04/memberList.do";
 		} else {
 			//가입실패 ->예외객체를 만들어서 WAS에게 던지자.
 			throw new ServletException("not Update");
