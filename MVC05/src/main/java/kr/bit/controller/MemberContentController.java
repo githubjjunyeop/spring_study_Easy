@@ -17,7 +17,7 @@ public class MemberContentController implements Controller{
 		
 		int num = Integer.parseInt(request.getParameter("num"));
 		MemberDAO dao = new MemberDAO();
-		MemberVO vo = dao.MemberContent(num);
+		MemberVO vo = dao.memberContent(num);
 		
 		request.setAttribute("vo", vo);
 		return "memberContent"; // 뷰의 이름만 return 

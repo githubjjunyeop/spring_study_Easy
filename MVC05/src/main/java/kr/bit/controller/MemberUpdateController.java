@@ -27,7 +27,7 @@ public class MemberUpdateController implements Controller{
 		vo.setPhone(phone);
 		
 		MemberDAO dao = new MemberDAO();
-		int cnt = dao.MemberUpdate(vo);
+		int cnt = dao.memberUpdate(vo);
 		String nextpage = null;
 		String ctx = request.getContextPath(); // /MVC04
 		

@@ -65,7 +65,7 @@
 			<td colspan="2" align ="center">
 				<button onclick="updateFn()" class="btn btn-warning">수정하기</button>
 				<button onclick="reset" class="btn btn-primary">취소</button>
-				<button onclick="location.href='${ctx}/memberList.do'" class="btn">List돌아가기</button>
+				<button onclick="location.href='${ctx}/memberList.do'" class="btn btn-success" >List돌아가기</button>
 			</td>
 		</tr>
 		

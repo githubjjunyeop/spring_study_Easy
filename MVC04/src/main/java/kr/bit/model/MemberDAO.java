@@ -28,7 +28,7 @@ public class MemberDAO {
 	//회원저장 동작
 	
 	public int memberInsert(MemberVO vo) {
-		String SQL = "INSERT INTO member (id, pass, name, age, email, phone) VALUES(?, ?, ?, ?, ?, ?);";
+		String SQL = "INSERT INTO member (id, pass, name, age, email, phone) VALUES(?, ?, ?, ?, ?, ?)";
 		getConnect();
 		// SQL 문장을 전송하는 객체
 		int cnt = -1;

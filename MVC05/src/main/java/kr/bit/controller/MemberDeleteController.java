@@ -17,8 +17,8 @@ public class MemberDeleteController implements Controller{
 		
 		String ctx = request.getContextPath(); // /MVC04
 				
-		String num = request.getParameter("num"); 
-		int cnt = dao.MemberDelete(num);
+		int num = Integer.parseInt(request.getParameter("num"));  
+		int cnt = dao.memberDelete(num);
 		String nextpage = "";
 		if(cnt > 0) {
 			nextpage = "redirect:"+ctx+"/memberList.do";			
