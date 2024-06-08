@@ -32,4 +32,8 @@
 	UPDATE member set age=#{age}, email=#{email}, phone=#{phone} WHERE num=#{num}
 	</update>
 	
+	<select id="memberLogin" parameterType="memberVO" resultType="String">
+		SELECT name FROM member WHERE id=#{id} AND pass=#{pass}
+	</select>
+	
 </mapper>

@@ -72,4 +72,13 @@ public class MemberDAO {
 		return cnt;
 	}
 	
+	public String memberLogin(MemberVO vo) {
+		SqlSession session = sqlSessionFactory.openSession();
+		String user_name =  session.selectOne("memberLogin", vo);
+		
+		
+		session.close(); //반납
+		return user_name;
+	}
+	
 }
