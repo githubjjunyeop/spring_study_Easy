@@ -12,7 +12,7 @@ import kr.bit.model.MemberVO;
 public class MemberContentController implements Controller{
 
 	@Override
-	public String requestHandler(HttpServletRequest request, HttpServletResponse reponse)
+	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
 		int num = Integer.parseInt(request.getParameter("num"));

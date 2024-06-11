@@ -13,7 +13,7 @@ import kr.bit.model.MemberVO;
 public class MemberListController implements Controller{
 
 	@Override
-	public String requestHandler(HttpServletRequest request, HttpServletResponse reponse)
+	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		MemberDAO dao = new MemberDAO();
 		List<MemberVO> list = dao.memberList();

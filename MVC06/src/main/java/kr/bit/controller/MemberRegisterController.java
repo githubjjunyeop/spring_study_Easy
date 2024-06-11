@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 public class MemberRegisterController implements Controller{
 
 	@Override
-	public String requestHandler(HttpServletRequest request, HttpServletResponse reponse)
+	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
 		return "memberRegister";
