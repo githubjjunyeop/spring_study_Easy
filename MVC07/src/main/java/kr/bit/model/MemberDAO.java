@@ -87,7 +87,7 @@ public class MemberDAO {
 		String dbid = session.selectOne("memberDbcheck", id);
 		String idDouble = "NO";
 		
-		if(dbid !=null) {
+		if(dbid != null) {
 			idDouble = "YES";
 		}
 		return idDouble; // YES(중복), NO(중복아님);

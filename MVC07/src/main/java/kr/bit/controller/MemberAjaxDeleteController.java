@@ -8,27 +8,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.bit.model.MemberDAO;
 
-public class MemberDeleteController implements Controller{
+public class MemberAjaxDeleteController implements Controller{
 
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		String ctx = request.getContextPath(); // /MVC06
 		
 		MemberDAO dao = new MemberDAO();
 		
 		int num = Integer.parseInt(request.getParameter("num"));  
 		int cnt = dao.memberDelete(num);
-		String nextpage = "";
-		if(cnt > 0) {
-			request.getSession().invalidate();
-			nextpage = "redirect:"+ctx+"/memberList.do";			
-		} else {
-			throw new ServletException("not delete");
-		}
+		response.getWriter().print(cnt);
 		
-		return nextpage;
+		return null;
 	}
 
 }

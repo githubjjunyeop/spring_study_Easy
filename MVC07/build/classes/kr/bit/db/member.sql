@@ -34,3 +34,17 @@ UPDATE member set age =45, phone='010-1111-0000' WHERE ID ='admin';
 DELETE FROM member WHERE ID ='admin';
 
 DROP TABLE member;
+
+SELECT * FROM member1;
+
+CREATE TABLE member1(
+	num int primary key auto_increment,
+	id varchar(20) not null,
+	pass varchar(20) not null,
+	name varchar(30) not null,
+	age int not null,
+	email varchar(30) not null,
+	phone varchar(100) not null,
+	filename varchar(50),
+	unique key(id)
+);

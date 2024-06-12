@@ -14,10 +14,12 @@
   
   <script>
   
+  
   	function add(){
   		// form의 데이터 유효성 체크 
   		document.form1.action ="<c:url value='/memberInsert.do'/>";
   		document.form1.submit();
+  		
   	}
   	
   	function frmreset(){
@@ -40,7 +42,7 @@
   		});
   	}
   	
-  	function dbCheck(data){
+  	function dbCheck(data){ // callback 함수
   		if(data != "NO"){
   			alert("중복된 아이디 입니다.");
   			$("#id").focus();
@@ -49,6 +51,33 @@
   			$("#id").focus();
   		}
   	}
+  	
+  	function add2(){
+  		
+  		if($("#file").val()!= ''){ //파일이 첨부가 된 경우
+  			var formData = new FormData();
+  			formData.append("file", $("input[name=file]")[0].files[0]);
+  			$.ajax({
+  				url : "<c:url value='/fileAdd.do'/>", //fileAdd.do (파일업로드)
+  				type : "post",
+  				data : fromData,
+  				processData : false,
+  				contentType : false,
+  				success : function(data){	//업로드된 실제파일 이름을 전달 받기
+  					$('#filename').val(data);
+  					document.form1.action="<c:url value= '/memberInsert.do'/>"; // text 데이터를 저장하는 부분 
+  					document.form1.submit();
+  				},
+  				error : function(){ alert("error"); }
+  				
+  			});
+  		} else { //파일이 첨부 되지 않은 경우
+  			
+  		}
+  		
+  		
+  	}
+  	
   
   </script>
 </head>
@@ -116,18 +145,27 @@
 		  </div>
 		  
 		  <div class="form-group">
-		    <label class="control-label col-sm-2" for="phone">전화번호:</label>
+		      <label class="control-label col-sm-2" for="phone">전화번호:</label>
 		    <div class="col-sm-10">
 		      <input type="text" class="form-control" id="phone" name="phone" placeholder="전화번호를 입력하세요" style=" width:30%">
 		    </div>
 		  </div>
 		  
+		   <div class="form-group">
+		      <label class="control-label col-sm-2" for="">첨부파일:</label>
+		    <div class="col-sm-10">
+		      <input type="file" class="control-label" id="file" name="file" style=" width:30%">
+		    </div>
+		  </div>
+		  
+		 	<input type="hidden" name="filename" id="filename" value="">
+		 	
 		</form>
     </div>
     <div class="panel-footer" align="center">
     
     <c:if test="${sessionScope.userId == null || sessionScope.userId == '' }">
-    <input type="button" value="등록" onclick="add()" class="btn btn-primary">
+    <input type="button" value="등록" onclick="add2()" class="btn btn-primary">
     </c:if>
     
     <c:if test="${sessionScope.userId != null && sessionScope.userId != '' }">

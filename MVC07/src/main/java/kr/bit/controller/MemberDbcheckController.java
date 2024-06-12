@@ -17,6 +17,7 @@ public class MemberDbcheckController implements Controller{
 		String id = request.getParameter("id"); // {"id" : id}
 		MemberDAO dao = new MemberDAO();
 		// ajax() 함수에 만들어놓은 callback함수로 응답이 된다.
+		
 		String dbDouble= dao.memberDbcheck(id); // YES , NO 중복이면 ->YES 
 		// ajax() 함수에 만들어놓은 callback 함수로 응답이 된다.
 		response.getWriter().print(dbDouble);
