@@ -60,19 +60,20 @@
   			$.ajax({
   				url : "<c:url value='/fileAdd.do'/>", //fileAdd.do (파일업로드)
   				type : "post",
-  				data : fromData,
+  				data : formData,
   				processData : false,
   				contentType : false,
   				success : function(data){	//업로드된 실제파일 이름을 전달 받기
+  					//alert(data);
   					$('#filename').val(data);
-  					document.form1.action="<c:url value= '/memberInsert.do'/>"; // text 데이터를 저장하는 부분 
-  					document.form1.submit();
+  					document.form1.action="<c:url value= '/memberInsert.do'/>?mode=fadd"; // text 데이터를 저장하는 부분 
+  					document.form1.submit(); // id, pass, name, age, email, phone, filename
   				},
   				error : function(){ alert("error"); }
-  				
   			});
   		} else { //파일이 첨부 되지 않은 경우
-  			
+  			document.form1.action="<c:url value= '/memberInsert.do'/>?mode=add"; // text 데이터를 저장하는 부분 
+			document.form1.submit(); // id, pass, name, age, email, phone
   		}
   		
   		

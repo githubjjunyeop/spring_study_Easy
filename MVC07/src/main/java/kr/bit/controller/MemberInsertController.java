@@ -27,6 +27,11 @@ public class MemberInsertController implements Controller {
 //		MemberVO vo = new  MemberVO(id, pass, name, age, email, phone);
 		MemberVO vo = new  MemberVO();
 		
+		if(request.getParameter("mode").equals("fadd")) {
+			String filename = request.getParameter("filename");
+			vo.setFilename(filename);
+		}
+		
 		vo.setId(id);
 		vo.setPass(pass);
 		vo.setName(name);
@@ -35,7 +40,12 @@ public class MemberInsertController implements Controller {
 		vo.setPhone(phone);
 		
 		MemberDAO dao = new MemberDAO();
-		int cnt = dao.memberInsert(vo);
+		int cnt = -1;
+		if(request.getParameter("mode").equals("fadd")) {
+			cnt = dao.memberInsertFile(vo);
+		} else {
+			cnt = dao.memberInsert(vo);
+		}
 //		PrintWriter out =response.getWriter();
 		String nextpage = null;
 		

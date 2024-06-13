@@ -17,6 +17,11 @@
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js'></script>
 <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js'></script>
 
+<style>
+	table td {
+		vertical-align: middle !important;
+	}
+</style>
 <script>
 	$(document).ready(function(){
 		<c:if test="${!empty msg}">
@@ -86,6 +91,7 @@
 			html += "<td>" + obj.age +"</td>";
 			html += "<td>" + obj.email +"</td>";
 			html += "<td>" + obj.phone +"</td>";
+			html += "<td>" + obj.phone +"</td>";
 			html += "<td><input type='button' value='삭제' class='btn btn-warning' onclick='delFn("+obj.num+")'</td>";
 			html += "</tr>";
 		});
@@ -148,6 +154,7 @@
 			<th>나이</th>
 			<th>이메일</th>
 			<th>전화번호</th>
+			<th>이미지</th>
 			<th>삭제</th>
 	      </tr>
 	  
@@ -160,6 +167,12 @@
 				<td>${vo.age}</td>
 				<td>${vo.email}</td>
 				<td>${vo.phone}</td>
+				
+				<td>
+				<c:if test="${vo.filename != null && vo.filename != ''  }">
+					<img src="<c:out value='file_repo/${vo.filename}' />"width="60px" height="60px">
+				</c:if>
+				</td>
 				
 				<c:if test="${sessionScope.userId ==vo.id}">
 				<td>

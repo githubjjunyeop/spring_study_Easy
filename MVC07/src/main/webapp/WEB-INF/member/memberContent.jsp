@@ -29,6 +29,11 @@
 		document.form1.reset();
 	}
 	
+	function getFile(filename){
+		location.href="<c:url value='/fileGet.do'/>?filename="+filename;
+	}
+	
+	
 </script>
 </head>
 <body>
@@ -37,8 +42,11 @@
   <div class="panel panel-default">
     <div class="panel-heading">
     
-	<c:if test="${sessionScope.userId !=null && sessionScope.userId != ''}">
-  		<label>${sessionScope.userName}님이 로그인 하셨습니다.</label>
+	<c:if test="${sessionScope.userId !=null && sessionScope.userId != '' && sessionScope.userId == vo.id}">
+  		<label>
+  		<img src="<c:out value= 'file_repo/${vo.filename}'/>" width ="80px" height="80px"/>
+  		${sessionScope.userName}님이 로그인 하셨습니다.
+  		</label>
 	</c:if>
 	
 	<c:if test="${sessionScope.userId ==null || sessionScope.userId == ''}">
@@ -97,8 +105,25 @@
 	    			<input type="text" class="form=control" id="phone" name="phone" value="${vo.phone}">
 	    		</div>
 	    	</div>
+	    	
+	    	<div class="form-group">
+	    			<label class="control-label col-sm-2">첨부파일: </label>
+	    		<div class="col-sm-10">
+	    			<input type="file" id="file" name="file">
+	    			<c:if test="${vo.filename !=null && vo.filename != '' }">
+	    					<a href="javascript:getFile('${vo.filename}')"> <c:out value='${vo.filename}' /> </a>
+	    			</c:if>
+	    			
+	    			<c:if test="${sessionScope.userId != null && sessionScope.userId == vo.id && vo.filename !=null && vo.filename != ''}" >
+	    				<span class="glyphicon glyphicon-remove"></span>
+	    			</c:if>
+	    		
+	    		</div>
+	    	</div>
+	    	
 		   </form>
     </div>
+    
     <div class="panel-footer" align="center">
     	<c:if test= "${!empty sessionScope.userId}">
 	    	
