@@ -12,7 +12,7 @@ CREATE TABLE member(
 -- unique 중복 허용 X
 -- SQL(CRUD), JDBC
 
-SELECT * FROM member;
+SELECT * FROM member1;
 
 --INSERT 
 INSERT INTO member (id, pass, name, age, email, phone) 

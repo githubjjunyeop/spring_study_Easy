@@ -21,13 +21,25 @@ public class MemberUpdateController implements Controller{
 		String phone = request.getParameter("phone");
 		
 		MemberVO vo = new MemberVO();
+		if(request.getParameter("mode").equals("fupdate")) {
+			String filename = request.getParameter("filename");
+			vo.setFilename(filename);
+		}
+		
 		vo.setNum(num);
 		vo.setAge(age);
 		vo.setEmail(email);
 		vo.setPhone(phone);
 		
 		MemberDAO dao = new MemberDAO();
-		int cnt = dao.memberUpdate(vo);
+		int cnt = -1;
+		if(request.getParameter("mode").equals("fupdate")) {
+			cnt = dao.memberUpdateFile(vo);
+		} else {
+			cnt = dao.memberUpdate(vo);
+		}
+		
+		
 		String nextpage = null;
 		String ctx = request.getContextPath(); // /MVC04
 		

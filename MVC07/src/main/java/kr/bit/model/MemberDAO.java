@@ -103,4 +103,24 @@ public class MemberDAO {
 		return idDouble; // YES(중복), NO(중복아님);
 	}
 	
+	//파일삭제
+	public int memberDeleteFile(int num) {
+		SqlSession session = sqlSessionFactory.openSession();
+		int cnt  = session.update("memberDeleteFile", num);
+		session.commit();
+		session.close();
+	
+		return cnt; // YES(중복), NO(중복아님);
+	}
+	
+	//파일 있는 경우 수정
+	public int memberUpdateFile(MemberVO vo) {
+		SqlSession session = sqlSessionFactory.openSession();
+		int cnt = session.update("memberUpdateFile", vo);
+		session.commit();
+		session.close();
+	
+		return cnt; // YES(중복), NO(중복아님);
+	}
+	
 }

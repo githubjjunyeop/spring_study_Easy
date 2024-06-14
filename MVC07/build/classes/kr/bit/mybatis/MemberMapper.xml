@@ -53,4 +53,12 @@
 		SELECT * FROM member1 WHERE id=#{id} 
 	</select>
 	
+	<update id="memberDeleteFile" parameterType="Integer">
+		UPDATE member1 set filename='' WHERE num=#{num}
+	</update>
+	
+	<update id="memberUpdateFile" parameterType="memberVO">
+		UPDATE member1 set age=#{age}, email=#{email}, phone=#{phone}, filename=#{filename} WHERE num=#{num}
+	</update>
+	
 </mapper>

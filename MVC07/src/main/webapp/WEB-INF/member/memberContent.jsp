@@ -4,7 +4,6 @@
     
 <%
 
-	
 	//MemberVO vo = (MemberVO)request.getAttribute("vo"); 
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -19,11 +18,33 @@
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js'></script>
 <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js'></script>
 	
-<script>
+<script type="text/javascript">
 	function updateFn(){
 		
-		document.form1.action ="<c:url value='/memberUpdate.do'/>";
-		document.form1.submit();
+		if($("#file").val()!= ''){ //파일이 첨부가 된 경우
+  			var formData = new FormData();
+  			formData.append("file", $("input[name=file]")[0].files[0]);
+  			$.ajax({
+  				url : "<c:url value='/fileAdd.do'/>", //fileAdd.do (파일업로드)
+  				type : "post",
+  				data : formData,
+  				processData : false,
+  				contentType : false,
+  				success : function(data){	//업로드된 실제파일 이름을 전달 받기
+  					//alert(data);
+  					$('#filename').val(data);
+  					document.form1.action="<c:url value= '/memberUpdate.do'/>?mode=fupdate"; // text 데이터를 저장하는 부분 
+  					document.form1.submit(); // num , age, email, phone, filename
+  				},
+  				error : function(){ alert("error"); }
+  			});
+  		} else { //파일이 첨부 되지 않은 경우
+  			document.form1.action="<c:url value= '/memberUpdate.do'/>?mode=update"; // text 데이터를 저장하는 부분 
+			document.form1.submit(); //num, age, email, phone, X
+  		}
+		
+		
+		
 	}
 	function frmreset(){
 		document.form1.reset();
@@ -31,6 +52,11 @@
 	
 	function getFile(filename){
 		location.href="<c:url value='/fileGet.do'/>?filename="+filename;
+	}
+	
+	
+	function delFile(num ,filename){
+		location.href="<c:url value='/fileDel.do'/>?filename="+filename + "&num="+num;
 	}
 	
 	
@@ -57,6 +83,7 @@
  		<form id="form1" name="form1" class="form-horizontal" method="post">
  		
  		<input type="hidden" name="num" value="${vo.num}">
+ 		<input type="hidden" name="filename" id="filename" value="">
 	    	<div class="form-group">
 	    			<label class="control-label col-sm-2">번호 : </label>
 	    		<div class="col-sm-10">
@@ -115,7 +142,9 @@
 	    			</c:if>
 	    			
 	    			<c:if test="${sessionScope.userId != null && sessionScope.userId == vo.id && vo.filename !=null && vo.filename != ''}" >
-	    				<span class="glyphicon glyphicon-remove"></span>
+	    			
+	    				<a href="javascript:delFile('${vo.num}', '${vo.filename}')"> <span class="glyphicon glyphicon-remove"></span> </a>
+	    				
 	    			</c:if>
 	    		
 	    		</div>
