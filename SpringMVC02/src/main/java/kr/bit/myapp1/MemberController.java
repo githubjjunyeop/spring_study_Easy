@@ -80,4 +80,12 @@ public class MemberController {
 		
 		return list; // Object -> JSON : @ResponseBody ->API - (jackson-databind) API
 	}
+
+	@RequestMapping("/form.do")
+	public String form(){
+	
+		return "uploadForm"; // Object -> JSON : @ResponseBody ->API - (jackson-databind) API
+	}
+
+	
 }
