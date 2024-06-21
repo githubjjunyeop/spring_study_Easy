@@ -1,12 +1,14 @@
 package kr.inflearn.model;
 
+import java.util.Date;
+
 public class BoardVO {
 	private int idx;
 	private String title;
 	private String contents;
 	private int count;
 	private String writer;
-	private String indate;
+	private Date indate;
 	
 	public int getIdx() {
 		return idx;
@@ -43,10 +45,12 @@ public class BoardVO {
 		this.writer = writer;
 	}
 	
-	public String getIndate() {
+	
+	
+	public Date getIndate() {
 		return indate;
 	}
-	public void setIndate(String indate) {
+	public void setIndate(Date indate) {
 		this.indate = indate;
 	}
 	

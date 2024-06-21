@@ -17,19 +17,11 @@
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="prefix" value="/WEB-INF/board/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<!-- 다중업로드 API -->
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<beans:property name="maxUploadSize" value="52428800"/>
-		<beans:property name="maxInMemorySize" value="1000000"/>
-		<beans:property name="defaultEncoding" value="UTF-8"/>
-	</beans:bean>
 	
-	<context:component-scan base-package="kr.bit.myapp1" />
-	
-	
+	<context:component-scan base-package="kr.inflearn.web" />
 	
 </beans:beans>

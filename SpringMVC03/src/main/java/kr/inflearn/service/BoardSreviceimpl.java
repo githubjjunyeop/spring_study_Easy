@@ -2,41 +2,43 @@ package kr.inflearn.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import kr.inflearn.mapper.BoardMapper;
 import kr.inflearn.model.BoardVO;
 
+@Service
 public class BoardSreviceimpl implements BoardService{
 	
-	private BoardMapper mapper;
+	@Autowired
+	private BoardMapper mapper; // DI 의존성 주입
 
 	@Override
 	public List<BoardVO> getList() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return mapper.getList();
 	}
 
 	@Override
 	public void register(BoardVO board) {
-		// TODO Auto-generated method stub
+		mapper.insert(board);
 		
 	}
 
 	@Override
 	public BoardVO get(int bno) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.read(bno);
 	}
 
 	@Override
 	public int remove(int bno) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mapper.delete(bno);
 	}
 
 	@Override
 	public int modify(BoardVO board) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mapper.update(board);
 	}
 
 	
