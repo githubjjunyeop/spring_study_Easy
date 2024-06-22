@@ -10,37 +10,57 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+  <script>
+  		$(document).ready(()=>{
+  			$("#list").click(()=>{
+  				location.href="<c:url value='/list.do'/>";
+  			});
+  			
+  			$("#remove").click(()=>{
+  				location.href="<c:url value='/remove.do'/>?bno="+${board.idx};
+  			});
+  			
+  		});
+  </script>
 </head>
 <body>
  <br>
 	<div class="container">
 	
 	  
-	  <h2>게시판</h2>
+	  <h2>Board Modify Page</h2>
 	  <div class="panel panel-default">
 	  
-	    <div class="panel-heading">게시물 쓰기</div>
+	    <div class="panel-heading">Board Modify</div>
 	    
 	    <div class="panel-body">
 	    
-	    	<form action="<c:url value='/register.do' />" method="post">
+	    	<form action="<c:url value='/modify.do' />" method="post">
+	    	
+	    	  <div class="form-group">
+			    <label>Bno</label>
+			    <input type="text" class="form-control" id="idx" name="idx" value="${board.idx}" readonly>
+			  </div>
+	    	
 			  <div class="form-group">
 			    <label>Title</label>
-			    <input type="text" class="form-control" name="title">
+			    <input type="text" class="form-control" name="title" value="${board.title}">
 			  </div>
 			  
 			  <div class="form-group">
 			    <label>Text area</label>
-			    <textarea class="form-control" rows="7" name="contents"></textarea>
+			    <textarea class="form-control" rows="7" name="contents"> ${board.contents} </textarea>
 			  </div>
 			  
 			  <div class="form-group">
 			    <label>Writer</label>
-			    <input type="text" class="form-control" name="writer">
+			    <input type="text" class="form-control" name="writer" value="${board.writer}" readonly>
 			  </div>
 			  
-			  <button type="submit" class="btn btn-default">등록</button>
-			  <button type="reset" class="btn btn-default">다시쓰기</button>
+			  <button type="submit" class="btn btn-primary">modify</button>
+			  <button id="remove" type="button" class="btn btn-danger">Remove</button>
+			  <button id="list" type="button" class="btn btn-default">List</button>
 			  
 			</form>
 	    	

@@ -5,7 +5,7 @@
 <mapper namespace="kr.inflearn.mapper.BoardMapper">
 	
 	<select id="getList" resultType="boardVO">
-		SELECT * FROM tb_board
+		SELECT * FROM tb_board order by idx desc
 	</select>
 	
 	<insert id="insert" parameterType="boardVO">
@@ -21,9 +21,13 @@
 		DELETE FROM tb_board WHERE idx=#{idx}
 	</delete>
 	
-	<update id="update" parameterType="Integer">
+	<update id="update" parameterType="boardVO">
 		UPDATE tb_board SET title=#{title}, contents=#{contents} 
 		WHERE idx=#{idx}
+	</update>
+	
+	<update id="count" parameterType="Integer">
+		UPDATE tb_board SET count=count+1 WHERE idx=#{idx}
 	</update>
 	
 </mapper>

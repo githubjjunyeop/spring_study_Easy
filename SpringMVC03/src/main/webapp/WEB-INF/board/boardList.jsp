@@ -49,7 +49,7 @@
 			    
 			      <tr>
 			        <td>${vo.idx}</td>
-			        <td>${vo.title}</td>
+			        <td> <a href="<c:url value='/get.do?bno=${vo.idx}'/>">${vo.title} </a> </td>
 			        <td>${vo.count}</td>
 			        <td>${vo.writer}</td>
 			        <td><fmt:formatDate pattern="yyyy-MM-dd" value="${vo.indate}" /></td>

@@ -27,7 +27,10 @@ public class BoardSreviceimpl implements BoardService{
 	}
 
 	@Override
-	public BoardVO get(int bno) {
+	public BoardVO get(int bno, String mode) {
+		if(mode.equals("get")) {
+		mapper.count(bno);
+		}
 		return mapper.read(bno);
 	}
 
@@ -40,7 +43,5 @@ public class BoardSreviceimpl implements BoardService{
 	public int modify(BoardVO board) {
 		return mapper.update(board);
 	}
-
-	
 
 }
