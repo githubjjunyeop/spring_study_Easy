@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html lang="en">
 <head>
   <title>Bootstrap Example</title>
@@ -22,11 +24,20 @@
 <body>
   <br>
 <div class="container">
-<jsp:include page="common/header.jsp"/>
-  <h3>Spring MVC 03</h3>
-  <p>In this example, the navigation bar is hidden on small screens and replaced by a button in the top right corner (try to re-size this window).
-  <p>Only when the button is clicked, the navigation bar will be displayed.</p>
-  <p>회원가입과 로그인 기능이 추가됩니다.</p>
+	
+	<jsp:include page="common/header.jsp"/>
+	
+	 <c:if test="${empty mvo}">
+	 <h3>Spring MVC 03</h3>
+	 </c:if>
+	 
+	 <c:if test="${!empty mvo}">
+	 <label>${mvo.memName}님 방문을 환영합니다.</label>
+	 </c:if>
+	 <p>In this example, the navigation bar is hidden on small screens and replaced by a button in the top right corner (try to re-size this window).
+	 <p>Only when the button is clicked, the navigation bar will be displayed.</p>
+	 <p>회원가입과 로그인 기능이 추가됩니다.</p>
+	 
 </div>
 
 	<div id="myMessage" class="modal fade" role="dialog" >

@@ -11,5 +11,10 @@
 	INSERT INTO mem_tbl(memID, memPassword, memName, memAge, memGender, memEmail, memProfile) 
 			VALUES(#{memID}, #{memPassword}, #{memName}, #{memAge}, #{memGender}, #{memEmail}, #{memProfile})
 	</insert>
+	
+	<select id="memLogin" parameterType="kr.board.entity.Member" resultType="kr.board.entity.Member">
+		SELECT * FROM mem_tbl 
+		WHERE memID=#{memID} AND memPassword=#{memPassword}
+	</select>
 
 </mapper>

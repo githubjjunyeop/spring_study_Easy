@@ -152,7 +152,8 @@
 	      </div>
 	    </div>	
 	  </div>
-	</div>    
+	</div>
+	    
     <div class="panel-footer">스프1탄_인프런(박매일)</div>
   </div>
 </div>
