@@ -1,5 +1,7 @@
 package kr.board.controller;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kr.board.entity.Member;
 import kr.board.mapper.MemberMapper;
@@ -164,12 +167,59 @@ public class MemberController {
 	
 	//회원사진 이미지 업로드(upload, DB저장)
 	@RequestMapping("/memImageUpdate.do")
-	public String memImageUpdate(HttpServletRequest request) {
+	public String memImageUpdate(HttpServletRequest request, HttpSession session, RedirectAttributes rttr) {
 		// 파일 업로드 API(cos.jar, 3가지)
 		MultipartRequest multi = null;
-		int fileMaxSize = 10*1024-1024; // 10MB
+		int fileMaxSize = 40*1024*1024; // 10MB
 		String savePath = request.getRealPath("resources/upload");
+		try {
+			//이미지 업로드
+			multi = new MultipartRequest(request, savePath, fileMaxSize, "UTF-8", new DefaultFileRenamePolicy());
+		} catch(Exception e) {
+			e.printStackTrace();
+			rttr.addFlashAttribute("msgType", "실패 메세지");
+			rttr.addFlashAttribute("msg", "파일의 크기는 10MB를 넘을 수 없습니다.");
+			return "redirect:/memImageForm.do";
+		}
 		
-		return "";
+		//데이터베이스 테이블에 회원이미지를 업데이트
+		String memID = multi.getParameter("memID");
+		String newProfile = "";
+		File file = multi.getFile("memProfile");
+		if(file != null) { // 업로드가 된 상태
+			// 이미지파일 여부를 체크 -> 이미지 파일이 아니면 삭제(1.png)
+			String ext = file.getName().substring(file.getName().lastIndexOf(".")+1); // 확장자만 가져오기
+			ext = ext.toUpperCase();
+			if(ext.equals("PNG") || ext.equals("GIF") || ext.equals("JPG")) {
+				// 새로 업로드 된 이미지, 현재DB에 있는 이미지
+				 String oldProfile = memberMapper.getMember(memID).getMemProfile();
+				 File oldFile = new File(savePath + "/"+ oldProfile);
+				 if(oldFile.exists()) {
+					 oldFile.delete();
+				 }
+				 
+				 newProfile =file.getName(); 
+				 
+			} else { //이미지 파일이 아니면
+				
+				if(file.exists()) {
+					file.delete();
+				}
+				rttr.addFlashAttribute("msgType", "실패 메세지");
+				rttr.addFlashAttribute("msg", "이미지 파일만 업로드 가능 합니다.");
+				return "redirect:/memImageForm.do";
+			}
+		}
+		Member mvo = new Member();
+		mvo.setMemID(memID);
+		mvo.setMemProfile(newProfile);
+		memberMapper.memProfileUpdate(mvo); //이미지 업데이트
+		Member m =memberMapper.getMember(memID);
+		// 세션생성
+		session.setAttribute("mvo", m);
+		rttr.addFlashAttribute("msgType", "성공 메세지");
+		rttr.addFlashAttribute("msg", "이미지를 성공적으로 저장 했습니다.");
+		return "redirect:/";
+		
 	}
 }

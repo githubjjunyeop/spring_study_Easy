@@ -33,7 +33,7 @@
     
     <div class="panel-body">
     	
-    	<form action="${contextPath}/memImageUpdate.do" method="post" enctype="multipart/form=data">
+    	<form action="${contextPath}/memImageUpdate.do" method="post" enctype="multipart/form-data">
          <input type="hidden" name="memID" value="${mvo.memID}"/>
          <table class="table table-bordered" style="text-align: center; border: 1px solid #dddddd;">
            <tr>
