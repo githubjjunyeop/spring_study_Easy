@@ -32,12 +32,51 @@
 	 </c:if>
 	 
 	 <c:if test="${!empty mvo}">
+	 
+	 	<c:if test="${mvo.memProfile eq ''}">
+	 		<img src="${contextPath}/resources/images/person.png" style="width: 50px; height:50px"/>
+	 	</c:if>
+	 	
+	 	<c:if test="${mvo.memProfile ne ''}">
+	 		<img src="${contextPath}/resources/upload/${mvo.memProfile}" style="width: 50px; height:50px"/>
+	 	</c:if>
+	 
 	 <label>${mvo.memName}님 방문을 환영합니다.</label>
 	 </c:if>
-	 <p>In this example, the navigation bar is hidden on small screens and replaced by a button in the top right corner (try to re-size this window).
-	 <p>Only when the button is clicked, the navigation bar will be displayed.</p>
-	 <p>회원가입과 로그인 기능이 추가됩니다.</p>
-	 
+	 <div class="panel panel-default">
+  
+    <div class="panel-heading">Panel Heading</div>
+    	<div>
+    		<img  src="${contextPath}/resources/images/homemain.jpg" style="width: 100%; height: 300px;"/>
+    	</div>
+    <div class="panel-body">
+    
+    	<ul class="nav nav-tabs">
+		  <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+		  <li><a data-toggle="tab" href="#menu1">게시판</a></li>
+		  <li><a data-toggle="tab" href="#menu2">공지사항</a></li>
+		</ul>
+		
+		<div class="tab-content">
+		  <div id="home" class="tab-pane fade in active">
+		    <h3>HOME</h3>
+		    <p>Some content.</p>
+		  </div>
+		  <div id="menu1" class="tab-pane fade">
+		    <h3>게시판</h3>
+		    <p>Some content in menu 1.</p>
+		  </div>
+		  <div id="menu2" class="tab-pane fade">
+		    <h3>공지사항</h3>
+		    <p>Some content in menu 2.</p>
+		  </div>
+		</div>
+		
+    </div>
+    
+    <div class="panel-footer">스프1탄_인프런(박준엽)</div>
+    
+  </div>
 </div>
 
 	<div id="myMessage" class="modal fade" role="dialog" >
