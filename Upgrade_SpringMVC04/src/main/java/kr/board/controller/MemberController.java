@@ -115,6 +115,7 @@ public class MemberController {
 	
 	@RequestMapping("/memUpdateForm.do")
 	public String memUpdateForm() {
+		
 		return "member/memUpdateForm";
 	}
 		
@@ -149,7 +150,9 @@ public class MemberController {
 			rttr.addFlashAttribute("msgType", "성공 메세지");
 			rttr.addFlashAttribute("msg", "회원정보 수정을 성공했습니다.");
 			// 회원수정이 성공하면=> 메세지
-			session.setAttribute("mvo", m); // ${!empty mvo}
+			Member vo = memberMapper.getMember(m.getMemID());
+			
+			session.setAttribute("mvo", vo); // ${!empty mvo}
 			return "redirect:/";
 			
 		}else {
