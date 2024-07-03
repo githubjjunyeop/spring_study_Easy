@@ -22,8 +22,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		filter.setForceEncoding(true);
 		http.addFilterBefore(filter,CsrfFilter.class);	
 		
-		
-		
 	}
 	
 	//패스워드 인코딩 객체 설정

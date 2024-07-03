@@ -25,7 +25,7 @@
 <br>
 <div class="container">
  <jsp:include page="../common/header.jsp"/>
-  <h2>UPGRADE Spring MVC05</h2>
+  <h2>UPGRADE Spring MVC06</h2>
   
   <div class="panel panel-default">
   

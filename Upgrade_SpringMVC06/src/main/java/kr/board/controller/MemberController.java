@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -102,42 +103,11 @@ public class MemberController {
 		
 	}
 	
-	@RequestMapping("/memLogout.do")
-	public String memLogout(HttpSession session) {
-		session.invalidate();
-		return "redirect:/";
-	}
-	
 	@RequestMapping("/memLoginForm.do")
 	public String memLoginForm() {
 		return "member/memLoginForm";
 	}
 	
-	
-	@RequestMapping("/memLogin.do")
-	public String memLogin(Member vo, RedirectAttributes rttr, HttpSession session) {
-		
-		if(vo.getMemID() == null || vo.getMemID().equals("") || 
-		   vo.getMemPassword() == null || vo.getMemPassword().equals("") ) {
-			rttr.addFlashAttribute("msgType", "실패 메세지");
-			rttr.addFlashAttribute("msg", "모든 내용을 입력해주세요.");
-			return "redirect:/memLoginForm.do";
-		}
-		
-		Member mvo =  memberMapper.memLogin(vo);
-		// 추가 : 비밀번호 일치 여부 
-		if(mvo != null && pwEncoder.matches(vo.getMemPassword(), mvo.getMemPassword())) {
-			rttr.addFlashAttribute("msgType", "성공 메세지");
-			rttr.addFlashAttribute("msg", "로그인에 성공하셨습니다.");
-			session.setAttribute("mvo", mvo);
-			return "redirect:/";
-		} else {
-			rttr.addFlashAttribute("msgType", "실패 메세지");
-			rttr.addFlashAttribute("msg", "다시 로그인을 해주세요.");
-			return "redirect:/memLoginForm.do";
-		}
-		
-	}
 	
 	@RequestMapping("/memUpdateForm.do")
 	public String memUpdateForm() {
@@ -268,5 +238,10 @@ public class MemberController {
 		rttr.addFlashAttribute("msg", "이미지를 성공적으로 저장 했습니다.");
 		return "redirect:/";
 		
+	}
+	
+	@GetMapping("/access-denied")
+	public String showAccessDenied() {
+		return "access-denied";
 	}
 }

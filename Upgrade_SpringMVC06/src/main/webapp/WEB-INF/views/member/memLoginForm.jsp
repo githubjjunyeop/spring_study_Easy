@@ -14,10 +14,12 @@
   
   <script>
 	  $(document).ready(function(){
-	  	if(${!empty msgType}){
-	   		$("#messageType").attr("class", "modal-content panel-warning");    
-	  		$("#myMessage").modal("show");
-	  	}
+		  if(${param.error!= null}){
+			  $("#messageType").attr("class", "modal-content panel-warning");    
+			  $(".modal-body").text("아이디와 비밀번호를 확인해주세요");    
+			  $(".modal-title").text("실패 메시지");    
+		  	  $("#myMessage").modal("show");
+		  }
 	  });
   </script>
 </head>
@@ -25,7 +27,7 @@
 <br>
 <div class="container">
  <jsp:include page="../common/header.jsp"/>
-  <h2>UPGRADE Spring MVC05</h2>
+  <h2>UPGRADE Spring MVC06</h2>
   
   <div class="panel panel-default">
   
@@ -38,12 +40,12 @@
          <table class="table table-bordered" style="text-align: center; border: 1px solid #dddddd;">
            <tr>
              <td style="width: 110px; vertical-align: middle;">아이디</td>
-             <td><input id="memID" name="memID" class="form-control" type="text" maxlength="20" placeholder="아이디를 입력하세요."/></td>
+             <td><input id="memID" name="username" class="form-control" type="text" maxlength="20" placeholder="아이디를 입력하세요."/></td>
            </tr>
            
            <tr>
              <td style="width: 110px; vertical-align: middle;">비밀번호</td>
-             <td colspan="2"><input id="memPassword" name="memPassword" class="form-control" type="password" maxlength="20" placeholder="비밀번호를 입력하세요."/></td>            
+             <td colspan="2"><input id="memPassword" name="password" class="form-control" type="password" maxlength="20" placeholder="비밀번호를 입력하세요."/></td>            
            </tr>
            
            <tr>

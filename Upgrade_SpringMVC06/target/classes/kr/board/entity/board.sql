@@ -30,7 +30,7 @@ CREATE TABLE mem_stbl(
 
 
 
--- auth --
+-- Auth --
 DROP TABLE mem_auth;
 
 CREATE TABLE mem_auth(
@@ -43,18 +43,10 @@ CREATE TABLE mem_auth(
 
 
 
-private int memIdx;
-private String memID;
-private String memPassword;
-private String memName;
-private int memAge; // <-null, 0
-private String memGender;
-private String memEmail;
-private String memProfile; //사진정보
-private List<AuthVO> authList;
-
-
-
 SELECT * FROM mem_stbl;
 SELECT * FROM myboard;
 SELECT * FROM mem_auth;
+
+DELETE FROM mem_auth;
+DELETE FROM mem_stbl;
+DELETE FROM myboard;

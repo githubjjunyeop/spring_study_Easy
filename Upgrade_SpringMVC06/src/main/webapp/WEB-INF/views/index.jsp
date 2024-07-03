@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 <html lang="en">
 <head>
   <title>Bootstrap Example</title>
@@ -13,6 +14,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   
   <script>
+  
 	  $(document).ready(function(){
 	  	if(${!empty msgType}){
 	   		$("#messageType").attr("class", "modal-content panel-success");    
