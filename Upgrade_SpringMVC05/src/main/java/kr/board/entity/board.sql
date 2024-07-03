@@ -11,7 +11,7 @@ create table myboard(
 	count int default 0,
 	primary key(idx) 
 );
-SELECT * FROM myboard;
+
 
 -- Member --
 DROP TABLE mem_stbl;
@@ -27,7 +27,7 @@ CREATE TABLE mem_stbl(
 	memProfile VARCHAR(50), 
 	PRIMARY KEY(memID)
 );
-SELECT * FROM mem_stbl;
+
 
 
 -- auth --
@@ -41,7 +41,7 @@ CREATE TABLE mem_auth(
 	CONSTRAINT fk_member_auth FOREIGN KEY(memID) REFERENCES mem_stbl(memID)
 );
 
-SELECT * FROM mem_auth;
+
 
 private int memIdx;
 private String memID;
@@ -55,11 +55,6 @@ private List<AuthVO> authList;
 
 
 
-
-insert into mem_tbl(memIdx, memID, memPassword, memName, 
-			memAge, memGender, memEmail, memProfile) 
-values('게시판 연습','게시판 연습','관리자');
-
-SELECT * FROM mem_tbl;
-DELETE mem_tbl FROM mem_tbl WHERE memID = 'qwer';
-SHOW TABLES LIKE 'mem_tbl';
+SELECT * FROM mem_stbl;
+SELECT * FROM myboard;
+SELECT * FROM mem_auth;
