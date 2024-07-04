@@ -20,6 +20,11 @@
 			  $(".modal-title").text("실패 메시지");    
 		  	  $("#myMessage").modal("show");
 		  }
+		  
+			if(${!empty msgType}){
+		   		$("#messageType").attr("class", "modal-content panel-success");    
+		  		$("#myMessage").modal("show");
+		  	}
 	  });
   </script>
 </head>

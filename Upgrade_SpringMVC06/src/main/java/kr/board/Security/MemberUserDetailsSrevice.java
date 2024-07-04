@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import kr.board.entity.Member;
+import kr.board.entity.MemberUser;
 import kr.board.mapper.MemberMapper;
 
 // UserDetailsService - 2

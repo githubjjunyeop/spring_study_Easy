@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kr.board.entity.AuthVO;
 import kr.board.entity.Member;
+import kr.board.entity.MemberUser;
 import kr.board.mapper.MemberMapper;
 
 @Controller
@@ -91,10 +94,7 @@ public class MemberController {
 			rttr.addFlashAttribute("msgType", "성공 메세지");
 			rttr.addFlashAttribute("msg", "회원가입에 성공했습니다.");
 			// 회원가입이 성공하면=>로그인처리하기
-			Member mvo =memberMapper.getMember(m.getMemID());
-			
-			session.setAttribute("mvo", mvo); // ${!empty mvo}
-			return "redirect:/";
+			return "redirect:/memLoginForm.do";
 		}else {
 			rttr.addFlashAttribute("msgType", "실패 메세지");
 			rttr.addFlashAttribute("msg", "이미 존재하는 회원입니다.");
@@ -138,7 +138,7 @@ public class MemberController {
 			return "redirect:/memUpdateForm.do";  // ${msgType} , ${msg}
 		}		
 			
-			m.setMemProfile(""); // 사진이미는 없다는 의미 ""
+			
 			// 회원을 테이블에 저장하기
 			// 추가 : 비밀번호 암호화 
 			String encyptPw = pwEncoder.encode(m.getMemPassword());
@@ -164,9 +164,9 @@ public class MemberController {
 			rttr.addFlashAttribute("msgType", "성공 메세지");
 			rttr.addFlashAttribute("msg", "회원정보 수정을 성공했습니다.");
 			// 회원수정이 성공하면=> 메세지
-			Member vo = memberMapper.getMember(m.getMemID());
-			
-			session.setAttribute("mvo", vo); // ${!empty mvo}
+			 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			   MemberUser userAccount = (MemberUser) authentication.getPrincipal();
+			   SecurityContextHolder.getContext().setAuthentication(createNewAuthentication(authentication,userAccount.getMember().getMemID()));
 			return "redirect:/";
 			
 		}else {
@@ -177,6 +177,11 @@ public class MemberController {
 		
 	}
 	
+	private Authentication createNewAuthentication(Authentication authentication, String memID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	@RequestMapping("/memImageForm.do")
 	public String memImageForm() {
 		return "member/memImageForm";
@@ -227,13 +232,18 @@ public class MemberController {
 				return "redirect:/memImageForm.do";
 			}
 		}
+		
+		//새로운 이미지를 이블에 업데이트
 		Member mvo = new Member();
 		mvo.setMemID(memID);
 		mvo.setMemProfile(newProfile);
 		memberMapper.memProfileUpdate(mvo); //이미지 업데이트
 		Member m =memberMapper.getMember(memID);
-		// 세션생성
-		session.setAttribute("mvo", m);
+		
+		//스프링 보안 
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		MemberUser userAccount = (MemberUser) authentication.getPrincipal();
+		SecurityContextHolder.getContext().setAuthentication(createNewAuthentication(authentication,userAccount.getMember().getMemID()));
 		rttr.addFlashAttribute("msgType", "성공 메세지");
 		rttr.addFlashAttribute("msg", "이미지를 성공적으로 저장 했습니다.");
 		return "redirect:/";
